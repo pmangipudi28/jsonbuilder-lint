@@ -221,13 +221,10 @@ export default function NodeUpdate({
 			...prevState,
 			[name]: value
 		}));
-
-		// setJsonChanged(true);
 		setKeyChanged(name);
 	};
 
 	const setChangedKey = () => {
-		// setJsonChanged(false);
 		setKeyChanged('');
 	};
 
@@ -253,7 +250,6 @@ export default function NodeUpdate({
 		});
 		if (getPathResult && Object.keys(getPathResult).length > 0) {
 			setJson(getPathResult[0].value);
-			//setJsonChanged(false);
 			setKeyChanged('');
 		}
 	};
@@ -297,9 +293,6 @@ export default function NodeUpdate({
         (json[k].toString() !== '' && json[k].toString().includes(searchTerm))
 			) {
 				setSearchKey(k);
-				//setSearchClass('searchedValue');
-			} else {
-				//setSearchClass('listItemText');
 			}
 		});
 	};
@@ -544,7 +537,6 @@ export default function NodeUpdate({
 	useEffect(() => {
 		setJson(data);
 		setSearchKey('');
-		//setSearchClass('listItemText');
 		searchData();
 		setOpen(expand);
 	}, [expand, searchTerm, data]);
