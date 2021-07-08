@@ -5,7 +5,7 @@ import undoable from 'redux-undo';
 
 const allReducers = combineReducers({
 	jsonReducer: undoable(jsonReducer, {
-		limit: 10
+		limit: 25
 	})
 });
 

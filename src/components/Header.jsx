@@ -356,7 +356,6 @@ export default function Header() {
 							</Popper>
 						</Grid>
 					</ThemeProvider>
-					{/* <Settings /> */}
 					<ThemeProvider theme={jsonBuilderTheme}>
 						<Grid item>
 							<IconButton ref={anchorRefOfSetting}

@@ -11,7 +11,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import CancelTwoToneIcon from '@material-ui/icons/CancelTwoTone';
-import AddToPhotosOutlinedIcon from '@material-ui/icons/AddToPhotosOutlined';
+import DoneAllRoundedIcon from '@material-ui/icons/DoneAllRounded';
 
 import { RemoveParentId, searchObject, uuidv4 } from '../components/helper/helper';
 import { fetch_json_success, selected_node_json, remove_object_json, add_object_json } from '../actions';
@@ -250,7 +250,7 @@ export default function Tree({
 							classes={{ root: classes.listIcon }}>
 							{open ? <ArrowDropDownIcon /> : <ArrowRightIcon />}
 						</ListItemIcon>
-						{/* appear ? classes.selectedNode : null,  */}
+
 						<ListItemText key={Math.random() * 10} className={appear ? classes.selectedNode : null}>
 							<b>
 								{parentName}
@@ -274,7 +274,7 @@ export default function Tree({
 												<EditTwoToneIcon onClick={editNode} fontSize="small" />
 											</Tooltip>
 											<Tooltip title="Clone node">
-												<AddToPhotosOutlinedIcon onClick={cloneNode} fontSize="small" />
+												<DoneAllRoundedIcon onClick={cloneNode} fontSize="small" />
 											</Tooltip>
 											<Tooltip title="Add child node">
 												<AddCircleOutlineRoundedIcon onClick={addNode} fontSize="small" />
