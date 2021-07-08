@@ -285,8 +285,8 @@ const PropertyUpdate = () => {
 										className={classes.accordionSection}>
 										<AccordionSummary
 											expandIcon={<ExpandMoreIcon />}
-											aria-controls='panel1bh-content'
-											id='panel1bh-header'
+											aria-controls='panel2bh-content'
+											id='panel2bh-header'
 											className={classes.accordionDetailsSection}>
 											<Typography>{Object.keys(jsonGrandParent).length > 0 ? jsonGrandParent.name : 'Field'} Properties</Typography>
 										</AccordionSummary>
@@ -303,8 +303,8 @@ const PropertyUpdate = () => {
 										className={classes.accordionSection}>
 										<AccordionSummary
 											expandIcon={<ExpandMoreIcon />}
-											aria-controls='panel1bh-content'
-											id='panel1bh-header'
+											aria-controls='panel3bh-content'
+											id='panel3bh-header'
 											className={classes.accordionDetailsSection}>
 											<Typography>{Object.keys(jsonParent).length > 0 ? jsonParent.name : 'Field'} Properties</Typography>
 										</AccordionSummary>
@@ -321,8 +321,8 @@ const PropertyUpdate = () => {
 										className={classes.accordionSection}>
 										<AccordionSummary
 											expandIcon={<ExpandMoreIcon />}
-											aria-controls='panel1bh-content'
-											id='panel1bh-header'
+											aria-controls='panel4bh-content'
+											id='panel4bh-header'
 											className={classes.accordionDetailsSection}>
 											<Typography>{Object.keys(jsonChild).length > 0 ? jsonChild.name : 'Field'} Properties</Typography>
 										</AccordionSummary>
@@ -339,8 +339,8 @@ const PropertyUpdate = () => {
 										className={classes.accordionSection}>
 										<AccordionSummary
 											expandIcon={<ExpandMoreIcon />}
-											aria-controls='panel1bh-content'
-											id='panel1bh-header'
+											aria-controls='panel5bh-content'
+											id='panel5bh-header'
 											className={classes.accordionDetailsSection}>
 											<Typography>{Object.keys(jsonGrandChild).length > 0 ? jsonGrandChild.name : 'Field'} Properties</Typography>
 										</AccordionSummary>

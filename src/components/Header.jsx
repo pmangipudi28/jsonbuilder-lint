@@ -18,7 +18,6 @@ import OpenFromCloud from '../components/OpenFromCloud';
 
 import Undo from '../components/Undo';
 import Redo from '../components/Redo';
-import PowerOff from '../components/PowerOff';
 import SaveToDisk from '../components/SaveToDisk';
 import SaveToURL from '../components/SaveToURL';
 
@@ -391,7 +390,6 @@ export default function Header() {
 
 					<Undo />
 					<Redo />
-					<PowerOff />
 				</Grid>
 				{errorMessage && <FileErrorComponent isValid={isValid} handleClose={handleClose} errorMessage={errorMessage} />}
 			</Toolbar>

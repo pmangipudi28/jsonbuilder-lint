@@ -4,6 +4,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch, useStore } from 'react-redux';
 import { simplify, desimplify } from 'simplifr';
+
 import { Typography, Grid, TextField, Collapse, List, ListItem, ListItemIcon, ListItemText, Tooltip, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
@@ -15,9 +16,11 @@ import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
+
 import { searchObject } from '../components/helper/helper';
 import { fetch_json_request, fetch_json_success, update_json, remove_node_json, selected_node_json, add_node_json} from '../actions';
 import { getReadOnlyStatus } from '../utility/index';
+
 import { jsonBuilderTheme } from '../themes/JsonBuilderTheme';
 
 const Alert = (props) => {
@@ -171,6 +174,7 @@ export default function NodeUpdate({
 	const [open, setOpen] = React.useState(false);
 	const [appear, setAppear] = useState(false);
 	const [addNewValue, setAddNewValue] = useState(false);
+	const [appearMain, setAppearMain] = useState(false);
 	const [checkkey, setCheckKey] = useState();
 	const [checkIndex, setCheckIndex] = useState();
 	const [checkKeyOfNode, setCheckKeyOfNode] = useState();
@@ -247,9 +251,11 @@ export default function NodeUpdate({
 	};
 
 	const updateJSON = (jsonData, path, name, json) => {
+
 		let getCurrentNodeResult = '';
 		const jsonUpdatedData = dispatch(update_json(jsonData, path, name, json));
 		const updatedJSONData = dispatch(fetch_json_success(desimplify(jsonUpdatedData.payload)));
+
 		if (Object.keys(updatedJSONData).length > 0)
 		{
 			getCurrentNodeResult = searchObject(updatedJSONData,
@@ -260,6 +266,7 @@ export default function NodeUpdate({
 				dispatch(selected_node_json(eval(JSON.parse(JSON.stringify(getCurrentNodeResult[0].value)))));
 			}
 		}
+
 		setState({ openSnackbar: true,  vertical: 'top', horizontal: 'center' });
 	};
 
@@ -351,6 +358,47 @@ export default function NodeUpdate({
 		setNewKey('');
 		setNewValue('');
 	};
+
+	// This function helps in removing an Object
+	const removeObject = () =>   {
+
+		let getPathResult = '';
+		let objectPath = '';
+
+		// Check if json is an array
+		if (Array.isArray(json))
+		{
+			getPathResult = searchObject(currentState.jsonData,
+				function (value) { return value !== null && value !== undefined && value.$ID === json[0].$ID; });
+
+			if (getPathResult !== null && getPathResult.length > 0)
+			{
+				// Get the Node Path by checking the first node of an Object
+				objectPath = getPathResult[0].path.substr(0, getPathResult[0].path.lastIndexOf('.'));
+			}
+		}
+		else
+		{
+			// Get the Node Path
+			getPathResult = searchObject(currentState.jsonData,
+				function (value) { return value !== null && value !== undefined && value.$ID === json.$ID; });
+
+			if (getPathResult !== null && getPathResult.length > 0)
+			{
+				objectPath = getPathResult[0].path;
+			}
+		}
+
+		// Simplify the current state's jsonData
+		const jsonData = simplify(currentState.jsonData);
+
+		if (objectPath !== null && objectPath.length > 0)
+		{
+			// run dispatch method in jsonReducer to remove the object
+			removeJSON(jsonData, objectPath);
+		}
+	};
+
 	// This function helps in removing a json node
 	const removeNode = (key) =>   {
 
@@ -395,6 +443,17 @@ export default function NodeUpdate({
 		}
 	};
 
+	const handleObjectAddition = (key, index) => {
+		Object.keys(json).map((k, i) => {
+			if (k === key && i === index)
+			{
+				setAddNewValue(true);
+				setCheckIndexOfNode(index);
+				setCheckKeyOfNode(key);
+				setAppear(true);
+			}
+		});
+	};
 
 	const handleNodeAddition = (key, index) => {
 
@@ -503,9 +562,20 @@ export default function NodeUpdate({
 					>
 						{open ? <ArrowDropDownIcon /> : <ArrowRightIcon />}
 					</ListItemIcon>
-					<ListItemText key={Math.random() * 10}>
+					<ListItemText key={Math.random() * 10} onMouseOver={() => setAppearMain(true)}
+						onMouseLeave={() => setAppearMain(false)}>
 						<b>{parentName}</b>
 					</ListItemText>
+					{ appearMain &&
+            <>
+            	<Tooltip title='Add an Object'>
+            		<AddCircleOutlineRoundedIcon onClick={() => handleObjectAddition()} fontSize='small' />
+            	</Tooltip>
+            	<Tooltip title='Remove an Object'>
+            		<CancelTwoToneIcon  onClick = {() => removeObject(parentName, json)} fontSize='small' />
+            	</Tooltip>
+            </>
+					}
 				</ListItem>
 			)}
 			<Collapse
@@ -529,6 +599,7 @@ export default function NodeUpdate({
             		<>
             			<Grid  spacing={2}>
             				<ListItem button className={classes.nested} onMouseOver= {() => handleMouseEnter(k, i)} onMouseLeave={() => handleMouseLeave()}>
+            					{/*<ListItem button className={classes.nested} onClick= {() => handleMouseEnter(k, i)} >*/}
             					<Grid item xs = {1} className={classes.hoverIconGrid}>
             						<>
             							{ appear && checkIndex === i && checkkey === k && <>
@@ -591,7 +662,7 @@ export default function NodeUpdate({
 
             			</Grid>
             			{ addNewValue && checkIndexOfNode === i && checkKeyOfNode === k &&
-                    <>{(k !== '$ID' && k !== '$PID') ?
+                    <>
                     	<Grid container spacing={1} className={classes.addSection}>
                     		<Grid item xs={1} className={classes.addButtonsSection}>
                     			<Button onClick = {cancelAdd} className={classes.addButtonsSectionButtons}>
@@ -611,7 +682,7 @@ export default function NodeUpdate({
                     		<Grid item xs={6}>
                     			<TextField name='newValue' value={newValue} onChange={(e) => setNewValue(e.target.value)}  required className={classes.addForm} placeholder='Enter Value' />
                     		</Grid>
-                    	</Grid> : null}
+                    	</Grid>
                     </>
             			}
             		</>

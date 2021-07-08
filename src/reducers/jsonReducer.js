@@ -113,13 +113,15 @@ const jsonReducer = (state = initialState, action) => {
 		}
 		else if (action.typeOfObject === 'Object')
 		{
-			jsonNewObject = {fields: [action.jsonToAdd]};
+			jsonNewObject = {children: [action.jsonToAdd]};
+			//jsonNewObject = [action.jsonToAdd];
 		}
 
 		console.log('ADD_OBJECT_JSON 1 ..... ' + JSON.stringify(jsonNewObject));
 		console.log('ADD_OBJECT_JSON 2 ..... ' + 'root' + action.path);
 
 		jsonUpdatedObjects = add(dataPayload, 'root' + action.path, jsonNewObject);
+		console.log('UPDATED JSON UPDATED OBJECTS .... ' + JSON.stringify(desimplify(jsonUpdatedObjects)));
 		updatedJsonObjects = desimplify(jsonUpdatedObjects);
 
 		return {
@@ -145,8 +147,9 @@ const jsonReducer = (state = initialState, action) => {
 		let jsonAfterRemoval = '';
 
 		const dataObject = action.payload;
-		jsonAfterRemoval = remove(dataObject, 'root' + action.path);
 
+		jsonAfterRemoval = remove(dataObject, 'root' + action.path);
+		console.log('REMOVE OBJECT JSON AFTER .... ' + JSON.stringify(desimplify(jsonAfterRemoval)));
 		return {
 			...state,
 			jsonData: desimplify(jsonAfterRemoval),

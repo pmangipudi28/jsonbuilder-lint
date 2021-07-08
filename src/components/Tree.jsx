@@ -96,9 +96,7 @@ export default function Tree({
 	const dispatch = useDispatch();
 
 	const [open, setOpen] = useState(false);
-	// const [json, setJson] = useState({});
 	const [appear, setAppear] = useState(false);
-	// const [jsonData, setJsonData] = useState({});
 
 	const currentState = useSelector(state => state.jsonReducer.present);
 
@@ -111,27 +109,15 @@ export default function Tree({
 		dispatch(selected_node_json(eval(JSON.parse(JSON.stringify(data))), false));
 	};
 
-	// Check if a value is an object
-	const isObject = function(value) {
-		return (typeof value === 'object');
-	};
-
-	// Check if an object is an array
-	const isArray = function(obj) {
-		return (Object.prototype.toString.call(obj) === '[object Array]');
-	};
-
 	const cloneNode = () => {
 
 		let getPathResult = '';
 		let objectPath = '';
-		// let jsonNodeToAdd = '';
 		const breakMap = {};
 		const foundChildObjects = false;
 
 		if (foundChildObjects === false)
 		{
-			// jsonNodeToAdd = data;
 			getPathResult = searchObject(currentState.jsonData,
 				function (value) { return value !== null && value !== undefined && value.$ID === data.$ID; });
 
@@ -148,52 +134,54 @@ export default function Tree({
 
 		let getPathResult = '';
 		let objectPath = '';
-		// const jsonNodeToAdd = '';
-		const breakMap = {};
-		let foundChildObjects = false;
 		let objectType = '';
-
-		for (const node in data) {
-
-			if (isObject(data[node]) && (isArray(data[node])))
-			{
-				foundChildObjects = true;
-				break;
-			}
-			else
-			{
-				foundChildObjects = false;
-			}
-		}
+		let childrenObjectFound = false;
 
 		const jsonNode = {name: 'New Field', id: uuidv4().toString()};
+
 		getPathResult = searchObject(currentState.jsonData,
 			function (value) { return value !== null && value !== undefined && value.$ID === data.$ID; });
 
 		if (getPathResult !== null && getPathResult.length > 0)
 		{
-			if (foundChildObjects === false)
+			objectPath = getPathResult[0].path;
+
+			Object.keys(getPathResult[0].value).map((key) => {
+				if (key === 'children')
+				{
+					childrenObjectFound = true;
+
+					if (getPathResult[0].value['children'].length === 0)
+					{
+						objectType = 'ArrayObject';
+						objectPath = objectPath + '.children';
+						getPath(objectPath, jsonNode, objectType);
+					}
+					else
+					{
+						objectType = 'ArrayObject';
+						objectPath = objectPath + '.children';
+						getPath(objectPath, jsonNode, objectType);
+					}
+				}
+			});
+
+			if (childrenObjectFound === false)
 			{
 				objectType = 'Object';
-				objectPath = getPathResult[0].path;
-			}
-			else if (foundChildObjects === true)
-			{
-				objectType = 'ArrayObject';
-				objectPath = getPathResult[0].path + '.fields';
+				getPath(objectPath, jsonNode, objectType);
 			}
 		}
-
-		getPath(objectPath, jsonNode, objectType);
-		throw breakMap;
 	};
 
 	const getPath = (jsonPath, nodeData, typeOfObject) => {
 		const jsonData = simplify(currentState.jsonData);
+		const newUUID = uuidv4().toString();
 
 		if (jsonPath !== null && jsonPath.length > 0)
 		{
-			nodeData['name'] = 'New Object - ' + uuidv4().toString();
+			nodeData['name'] = 'New Object';
+			nodeData['id'] = newUUID;
 			// run dispatch method in jsonReducer to add the node
 			addJSON(jsonData, jsonPath, nodeData, typeOfObject);
 		}
@@ -206,8 +194,6 @@ export default function Tree({
 
 		// Run dispatch method and get the updated JSON (of all objects)
 		const jsonNode = RemoveParentId(jsonNodeToAdd, '$ID', '$PID');
-
-		console.log('JSON Node..... ' + JSON.stringify(jsonNode));
 
 		jsonUpdatedData = dispatch(add_object_json(jsonData, path, jsonNode, typeOfObject));
 
@@ -228,6 +214,7 @@ export default function Tree({
 	};
 
 	const removeNode = () => {
+		let deletedObjectPath = '';
 
 		const getPathResult = searchObject(currentState.jsonData,
 			function (value) { return value !== null && value !== undefined && value.$ID === data.$ID; });
@@ -235,18 +222,17 @@ export default function Tree({
 
 		if (getPathResult !== null && getPathResult.length > 0)
 		{
-			removeJSON(jsonData, getPathResult[0].path);
+			deletedObjectPath = getPathResult[0].path;
+			removeJSON(jsonData, deletedObjectPath);
 		}
 	};
 
 	const removeJSON = (jsonData, path) => {
-		dispatch(remove_object_json(jsonData, path));
+		const jsonUpdatedData = dispatch(remove_object_json(jsonData, path));
+		return dispatch(
+			fetch_json_success(desimplify(jsonUpdatedData.payload))
+		);
 	};
-
-	// useEffect(() => {
-	// 	setJson(currentState.jsonData);
-	// 	setJsonData(currentState.jsonData);
-	// }, [currentState.jsonData]);
 
 	return (
 		<>
@@ -275,9 +261,12 @@ export default function Tree({
 								<>
 									{parentName === 'Root: []' ?
 										<>
-											<Tooltip title="Add child node">
-												<AddCircleOutlineRoundedIcon onClick={addNode} fontSize="small" />
-											</Tooltip>
+											{(Object.keys(currentState.jsonData).length) > 2 ?
+												<Tooltip title="Add child node">
+													<AddCircleOutlineRoundedIcon onClick={addNode} fontSize="small" />
+												</Tooltip>
+												: null
+											}
 										</>
 										:
 										<>
@@ -321,10 +310,8 @@ export default function Tree({
 									<>
 										{Array.from(data[k]).map((item, index) => (
 											<>
-												{console.log('Item .... ' + item)}
-												{/* {console.log('Index .... ' + index)} */}
 												{data[k][index]['id'] &&
-                                        <ShowNodes key={index} data={data[k][index]}  parentName={data[k][index]['id'] ? data[k][index]['name'] +  ' - ' + data[k][index]['id'] : ' '} />
+															<ShowNodes key={index} item={item} data={data[k][index]} parentName={data[k][index]['id'] ? data[k][index]['name'] +  ' - ' + data[k][index]['id'] : ' '} />
 												}
 											</>
 										))}
