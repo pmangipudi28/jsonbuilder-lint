@@ -48,10 +48,10 @@ const collectAllErrors = (getJSONSchemaData) => {
 			return notificationComponent;
 
 		} else {
-			return 'A';
+			return '';
 		}
 	} else {
-		return 'B';
+		return '';
 	}
 
 };
