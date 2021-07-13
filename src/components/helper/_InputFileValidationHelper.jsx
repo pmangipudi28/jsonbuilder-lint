@@ -35,7 +35,7 @@ export const FileErrorComponent = (props) => {
 	console.log(isValid);
 
 	return (
-		<Snackbar open={isValid} autoHideDuration={6000}  anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+		<Snackbar open={isValid} autoHideDuration={6000} onClose={() => handleClose()} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
 			<Alert variant='filled' severity='error' onClose={() => handleClose()}>
 				<strong>{errorMessage}</strong>
 			</Alert>

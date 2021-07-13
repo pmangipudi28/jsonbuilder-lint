@@ -81,7 +81,7 @@ export default function Header() {
 
 	const classes = useStyles();
 	const dispatch = useDispatch();
-	const [jsonSchemaValidationStatus, setJsonSchemaValidationStatus] = useState(true);
+
 	const currentState = useSelector(state => state.jsonReducer.present);
 	const currentStateJsonData = useSelector(state => state.jsonReducer.present.jsonData);
 
@@ -259,9 +259,6 @@ export default function Header() {
 		setState({ ...state, snachOpen: false });
 	};
 
-	const checkStatusOfJsonSchema=(isValid)=>{
-		setJsonSchemaValidationStatus(isValid);
-	};
 	return (
 
 		<AppBar position='static' className={classes.root}>
@@ -297,15 +294,9 @@ export default function Header() {
 							<IconButton ref={anchorRefOfOpen}
 								aria-controls={open ? 'menu-list-grow' : undefined}
 								aria-haspopup='true'
-								onClick={handleToggleOfOpen}
-								className={jsonSchemaValidationStatus ? classes.iconButtonHeader : classes.disableSave}
-							>
+								onClick={handleToggleOfOpen} className={classes.iconButtonHeader}>
 								<Badge>
-									{jsonSchemaValidationStatus ?
-										<FolderOpenOutlinedIcon  style={{ color: 'white' }} fontSize='default' />
-										:
-										<FolderOpenOutlinedIcon  style={{ color: 'black' }} fontSize='default' />
-									}
+									<FolderOpenOutlinedIcon style={{ color: 'white' }} fontSize='default' />
 								</Badge>
 							</IconButton>
 							<Popper open={open} anchorEl={anchorRefOfOpen.current} role={undefined} transition disablePortal>
@@ -365,7 +356,6 @@ export default function Header() {
 							</Popper>
 						</Grid>
 					</ThemeProvider>
-					{/* <Settings /> */}
 					<ThemeProvider theme={jsonBuilderTheme}>
 						<Grid item>
 							<IconButton ref={anchorRefOfSetting}
@@ -386,7 +376,7 @@ export default function Header() {
 										<Paper>
 											<ClickAwayListener onClickAway={handleCloseOfSetting}>
 												<MenuList autoFocusItem={setting} id='menu-list-grow' onKeyDown={handleListKeyDownOfSetting}>
-													<SchemaView checkStatusOfJsonSchema={checkStatusOfJsonSchema} />
+													<SchemaView />
 												</MenuList>
 											</ClickAwayListener>
 										</Paper>

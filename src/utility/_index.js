@@ -1,7 +1,6 @@
 import React from 'react';
 import JsonSchema from 'jsonschema';
 import { simplify } from 'simplifr';
-import { validateJson } from '../components/helper/helper';
 /**
  * check the json with schema
  * @param {object} store
@@ -9,21 +8,14 @@ import { validateJson } from '../components/helper/helper';
  */
 
 export const ValidateJsonSchema = (store) => {
-	const jsonReducer = store.getState().jsonReducer.present;
-	const [status] = validateJson(jsonReducer.jsonSchemaData);
 	const returnData = [];
-	if(status){
-		if (Object.keys(jsonReducer.jsonSchemaData).length && Object.keys(jsonReducer.jsonData).length > 2 ) {
+	if (Object.keys(store.getState().jsonReducer.present.jsonSchemaData).length && Object.keys(store.getState().jsonReducer.present.jsonData).length > 2 ) {
 
-			const JsonSchemaData = JSON.parse(jsonReducer.jsonSchemaData);
-			const JSONStringData = jsonReducer.jsonData;
-			returnData['hasMessage'] = true;
-			returnData['message'] = collectAllErrors(JsonSchema.validate(JSONStringData, JsonSchemaData));
+		const JsonSchemaData = store.getState().jsonReducer.present.jsonSchemaData;
+		const JSONStringData = store.getState().jsonReducer.present.jsonData;
+		returnData['hasMessage'] = true;
+		returnData['message'] = collectAllErrors(JsonSchema.validate(JSONStringData, JsonSchemaData));
 
-		} else {
-			returnData['hasMessage'] = false;
-			returnData['message'] = '';
-		}
 	} else {
 		returnData['hasMessage'] = false;
 		returnData['message'] = '';
@@ -56,10 +48,10 @@ const collectAllErrors = (getJSONSchemaData) => {
 			return notificationComponent;
 
 		} else {
-			return 'A';
+			return '';
 		}
 	} else {
-		return 'B';
+		return '';
 	}
 
 };
@@ -85,21 +77,20 @@ const collectAllErrors = (getJSONSchemaData) => {
  * @returns array
  */
 export const StoreJsonSchemaReadonlyInRedux = (store) => {
-	const jsonReducer = store.getState().jsonReducer.present;
+
 	const readOnlyPropertyArray = [];
-	const JsonSchemaData = jsonReducer.jsonSchemaData;
-	const [status] = validateJson(jsonReducer.jsonSchemaData);
-	if(status){
-		const jsonSchemaDataData = flatJsonData(JSON.parse(JsonSchemaData));
-		for (const key in jsonSchemaDataData) {
-			if (jsonSchemaDataData[key] === true && key.search('readOnly') !== -1) {
+	const JsonSchemaData = store.getState().jsonReducer.present.jsonSchemaData;
+	const jsonSchemaDataData = flatJsonData(JsonSchemaData);
 
-				const extraKey = removeNumberAndString(key);
-				readOnlyPropertyArray.push(extraKey);
+	for (const key in jsonSchemaDataData) {
+		if (jsonSchemaDataData[key] === true && key.search('readOnly') !== -1) {
 
-			}
+			const extraKey = removeNumberAndString(key);
+			readOnlyPropertyArray.push(extraKey);
+
 		}
 	}
+	console.log('readOnlyPropertyArray',readOnlyPropertyArray);
 	return readOnlyPropertyArray;
 };
 /**
@@ -110,13 +101,15 @@ export const StoreJsonSchemaReadonlyInRedux = (store) => {
  */
 
 export const getReadOnlyStatus = (nodePath, store) => {
-	const jsonReducer = store.getState().jsonReducer.present;
-	if (Object.entries(jsonReducer.jsonSchemaReadOnlyData).length) {
-		const jsonSchemaReadOnlyData = jsonReducer.jsonSchemaReadOnlyData;
+	if (Object.entries(store.getState().jsonReducer.present.jsonSchemaReadOnlyData).length) {
+		const jsonSchemaReadOnlyData = store.getState().jsonReducer.present.jsonSchemaReadOnlyData;
+		// console.log("jsonSchemaReadOnlyData", jsonSchemaReadOnlyData);
 		nodePath = removeNumberAndString(nodePath);
 		if (jsonSchemaReadOnlyData.indexOf(nodePath) !== -1) {
+			// console.log("nodePath", nodePath);
 			return true;
 		} else {
+			//console.log("nodePath", nodePath);
 			return false;
 		}
 	}

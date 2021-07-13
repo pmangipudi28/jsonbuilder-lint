@@ -105,7 +105,7 @@ const useStyles = makeStyles({
 	}
 });
 
-export const SchemaView = (props) => {
+export const SchemaView = () => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 
@@ -117,9 +117,6 @@ export const SchemaView = (props) => {
 	const store = useStore();
 
 	// const [isInValid, setIsInValid] = useState(false);
-	const currentState = useSelector(state => state.jsonReducer.present);
-	const schemaData = currentState.jsonSchemaData;
-	//const[schemaData, setSchemaData] = useState(currentState.jsonSchemaData);
 	const currentStateJsonData = useSelector(state => state.jsonReducer.present.jsonSchemaData);
 
 	const handleClickOpen = () => {
@@ -131,24 +128,21 @@ export const SchemaView = (props) => {
 	};
 
 	const handleNoSchema = () => {
-		props.checkStatusOfJsonSchema(true);
 		dispatch(save_json_schema([]), 0);
-		dispatch(save_json_schema_readonly([]), 0);
 	};
 
 	const handleCapture = e => {
 		const isValid = handleFileValidation(e);
-		let jsonSchemaStatusValue = true;
+
 		if (!isValid) {
 			// const message = 'Please upload a proper JSON Schema file';
-			jsonSchemaStatusValue = false;
 		} else {
 			const fileReader = new FileReader();
 			fileReader.readAsText(e.target.files[0], 'UTF-8');
 
 			fileReader.onload = e => {
 				try {
-					dispatch(save_json_schema(e.target.result), 1);
+					dispatch(save_json_schema(JSON.parse(e.target.result)), 1);
 					const readOnlyJsonSchemaArray = StoreJsonSchemaReadonlyInRedux(store);
 					dispatch(save_json_schema_readonly(readOnlyJsonSchemaArray), 1);
 				}
@@ -157,7 +151,6 @@ export const SchemaView = (props) => {
 					console.log('Issue to be captured here!');
 				}
 			};
-			props.checkStatusOfJsonSchema(jsonSchemaStatusValue);
 		}
 	};
 
@@ -173,6 +166,9 @@ export const SchemaView = (props) => {
 	useEffect(() => {
 		showAlert();
 	}, [currentStateJsonData]);
+
+	const currentState = useSelector(state => state.jsonReducer.present);
+	const schemaData = currentState.jsonSchemaData;
 
 	return (
 		<>
@@ -217,7 +213,7 @@ export const SchemaView = (props) => {
 					</Button>
 					<DialogContentText className={classes.paper}>
 						{schemaData && Object.keys(schemaData).length > 0 ?
-							<CodeView schemaData={schemaData} checkStatusOfJsonSchema={props.checkStatusOfJsonSchema} />
+							<CodeView schemaData={schemaData} />
 							: null}
 					</DialogContentText>
 				</DialogContent>
@@ -231,7 +227,7 @@ export const SchemaView = (props) => {
 	);
 };
 
-export const CodeView = ({ schemaData, checkStatusOfJsonSchema, replacer = null, space = 2 }) => {
+export const CodeView = ({ schemaData, replacer = null, space = 2 }) => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
 
@@ -266,7 +262,6 @@ export const CodeView = ({ schemaData, checkStatusOfJsonSchema, replacer = null,
 		} else {
 			isInValidJson(message);
 		}
-		checkStatusOfJsonSchema(status);
 	};
 
 	const isValidJson = () => {
@@ -276,7 +271,7 @@ export const CodeView = ({ schemaData, checkStatusOfJsonSchema, replacer = null,
 
 	const isInValidJson = (message) => {
 		setErrorMessage(message);
-		setIsValid(true);
+		setIsValid(false);
 	};
 
 	const setIndent = () => {
@@ -289,7 +284,7 @@ export const CodeView = ({ schemaData, checkStatusOfJsonSchema, replacer = null,
 
 
 	const saveJSON = () => {
-		Promise.resolve(dispatch(save_json_schema(codeView))).then(
+		Promise.resolve(dispatch(save_json_schema(JSON.parse(codeView)))).then(
 			() => {
 				dispatch(save_json_schema_status(1));
 				const readOnlyJsonSchemaArray = StoreJsonSchemaReadonlyInRedux(store);
@@ -311,19 +306,13 @@ export const CodeView = ({ schemaData, checkStatusOfJsonSchema, replacer = null,
 	};
 
 	useEffect(() => {
-		//let codeView = '', data;
+		let codeView = '', data;
 		const [status, message] = validateJson(schemaData);
-		//codeView = JSON.stringify(schemaData, null, space);
-		if(!status){
-			isInValidJson(message);
-		}
-		checkStatusOfJsonSchema(status);
-		//codeView = schemaData;
-		console.log('codeView', schemaData);
-		setCodeView(schemaData);
+		codeView = JSON.stringify(schemaData, null, space);
+		setCodeView(codeView);
 	}, [schemaData]);
 
-	const errorHandleClose = () => {
+	const handleClose = () => {
 		setIsValid(false);
 	};
 
@@ -345,7 +334,7 @@ export const CodeView = ({ schemaData, checkStatusOfJsonSchema, replacer = null,
 
 			{codeView !== '' && <textarea value={codeView} onChange={prettyJson} className={classes.resizeTextArea} placeholder='Schema File' />}
 
-			{ errorMessage && <FileErrorComponent handleClose={errorHandleClose} isValid={isValid} errorMessage={errorMessage} /> }
+			{ errorMessage && <FileErrorComponent handleClose={handleClose} isValid={true} errorMessage={errorMessage} /> }
 
 			{ successMessage && <SuccessMessage successMessage={successMessage} openAlertbar={openSnackbar} vertical={vertical}
 				horizontal={horizontal} handleCloseSuccess={handleCloseSuccess} />}
