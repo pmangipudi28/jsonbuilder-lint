@@ -1,0 +1,39 @@
+{
+  "countries": [
+    {
+      "name": "India",
+      "id": "1",
+      "states": [
+        {
+          "name": "Tamil Nadu",
+          "id": "1.2",
+          "text": "Information",
+          "style": "header-bg",
+          "fields": [
+            {
+              "name": "Chennai",
+              "id": "1.2.1",
+              "component": "input",
+              "key": "TamilNadu.Chennai",
+              "type": "text",
+              "required": true,
+              "maxLength": "50",
+              "style": {
+                "class": "text-field",
+                "colWidth": "6"
+              },
+              "initialValue": "",
+              "placeholder": "State Name",
+              "validations": [
+                {
+                  "validation": "IsMandatory",
+                  "message": "State Name is required"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

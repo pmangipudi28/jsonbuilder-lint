@@ -1,0 +1,54 @@
+ {
+
+ 	"steps": [{
+ 		"name": "Step1",
+ 		"id": "1",
+ 		"sections": [{
+ 				"name": "StepHeader",
+ 				"id": "1.2",
+ 				"text": "Information",
+ 				"style": "header-bg",
+ 				"fields": []
+ 			},
+ 			{
+ 				"name": "MainInfo",
+ 				"id": "1.3",
+ 				"fields": [{
+ 						"name": "firstName",
+ 						"id": "1.3.1",
+ 						"component": "input",
+ 						"key": "MainInfo.firstName",
+ 						"type": "text",
+ 						"required": true,
+ 						"maxLength": "50",
+ 						"style": {
+ 							"class": "text-field",
+ 							"colWidth": "6"
+ 						},
+ 						"initialValue": "",
+ 						"placeholder": "First Name",
+ 						"validations": [{
+ 							"validation": "IsMandatory",
+ 							"message": "First Name is required"
+ 						}]
+ 					},
+ 					{
+ 						"name": "middleName",
+ 						"id": "1.3.2",
+ 						"component": "input",
+ 						"api_key": "MainInfo.middleName",
+ 						"type": "text",
+ 						"placeholder": "Middle Name",
+ 						"required": false,
+ 						"maxLength": "50",
+ 						"style": {
+ 							"class": "text-field",
+ 							"colWidth": "6"
+ 						},
+ 						"initialValue": ""
+ 					}
+ 				]
+ 			}
+ 		]
+ 	}]
+ }

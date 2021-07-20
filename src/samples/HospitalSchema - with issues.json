@@ -1,0 +1,1050 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "countries": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object
+          "properties": {
+            "name": {
+              "type": "string
+            },
+            "id": {
+              "type": "string
+            },
+            "states": {
+              "type": "array
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "style": {
+                      "type": "string"
+                    },
+                    "fields": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "component": {
+                              "type": "string"
+                            },
+                            "key": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            },
+                            "required": {
+                              "type": "boolean"
+                            },
+                            "maxLength": {
+                              "type": "string"
+                            },
+                            "style": {
+                              "type": "object",
+                              "properties": {
+                                "class": {
+                                  "type": "string"
+                                },
+                                "colWidth": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "class",
+                                "colWidth"
+                              ]
+                            },
+                            "initialValue": {
+                              "type": "string"
+                            },
+                            "placeholder": {
+                              "type": "string"
+                            },
+                            "validations": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "validation": {
+                                      "type": "string"
+                                    },
+                                    "message": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "validation",
+                                    "message"
+                                  ]
+                                }
+                              ]
+                            },
+                            "fields": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string", 
+                                      "readOnly": true
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "component": {
+                                      "type": "string", 
+                                      "readOnly": true
+                                    },
+                                    "key": {
+                                      "type": "string", 
+                                      "readOnly": true
+                                    },
+                                    "type": {
+                                      "type": "string", 
+                                      "readOnly": true
+                                    },
+                                    "required": {
+                                      "type": "boolean"
+                                    },
+                                    "maxLength": {
+                                      "type": "string"
+                                    },
+                                    "style": {
+                                      "type": "object",
+                                      "properties": {
+                                        "class": {
+                                          "type": "string"
+                                        },
+                                        "colWidth": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "class",
+                                        "colWidth"
+                                      ]
+                                    },
+                                    "initialValue": {
+                                      "type": "string"
+                                    },
+                                    "placeholder": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "id",
+                                    "component",
+                                    "key",
+                                    "type",
+                                    "required",
+                                    "maxLength",
+                                    "style",
+                                    "initialValue",
+                                    "placeholder"
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "id",
+                            "component",
+                            "key",
+                            "type",
+                            "required",
+                            "maxLength",
+                            "style",
+                            "initialValue",
+                            "placeholder",
+                            "validations",
+                            "fields"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id",
+                    "text",
+                    "style",
+                    "fields"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "fields": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "component": {
+                              "type": "string"
+                            },
+                            "key": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            },
+                            "required": {
+                              "type": "boolean"
+                            },
+                            "maxLength": {
+                              "type": "string"
+                            },
+                            "style": {
+                              "type": "object",
+                              "properties": {
+                                "class": {
+                                  "type": "string"
+                                },
+                                "colWidth": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "class",
+                                "colWidth"
+                              ]
+                            },
+                            "initialValue": {
+                              "type": "string"
+                            },
+                            "placeholder": {
+                              "type": "string"
+                            },
+                            "fields": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "component": {
+                                      "type": "string"
+                                    },
+                                    "key": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "required": {
+                                      "type": "boolean"
+                                    },
+                                    "maxLength": {
+                                      "type": "string"
+                                    },
+                                    "style": {
+                                      "type": "object",
+                                      "properties": {
+                                        "class": {
+                                          "type": "string"
+                                        },
+                                        "colWidth": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "class",
+                                        "colWidth"
+                                      ]
+                                    },
+                                    "initialValue": {
+                                      "type": "string"
+                                    },
+                                    "placeholder": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "id",
+                                    "component",
+                                    "key",
+                                    "type",
+                                    "required",
+                                    "maxLength",
+                                    "style",
+                                    "initialValue",
+                                    "placeholder"
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "id",
+                            "component",
+                            "key",
+                            "type",
+                            "required",
+                            "maxLength",
+                            "style",
+                            "initialValue",
+                            "placeholder",
+                            "fields"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "component": {
+                              "type": "string"
+                            },
+                            "api_key": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            },
+                            "placeholder": {
+                              "type": "string"
+                            },
+                            "required": {
+                              "type": "boolean"
+                            },
+                            "maxLength": {
+                              "type": "string"
+                            },
+                            "style": {
+                              "type": "object",
+                              "properties": {
+                                "class": {
+                                  "type": "string"
+                                },
+                                "colWidth": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "class",
+                                "colWidth"
+                              ]
+                            },
+                            "initialValue": {
+                              "type": "string"
+                            },
+                            "fields": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "component": {
+                                      "type": "string"
+                                    },
+                                    "key": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "required": {
+                                      "type": "boolean"
+                                    },
+                                    "maxLength": {
+                                      "type": "string"
+                                    },
+                                    "style": {
+                                      "type": "object",
+                                      "properties": {
+                                        "class": {
+                                          "type": "string"
+                                        },
+                                        "colWidth": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "class",
+                                        "colWidth"
+                                      ]
+                                    },
+                                    "initialValue": {
+                                      "type": "string"
+                                    },
+                                    "placeholder": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "id",
+                                    "component",
+                                    "key",
+                                    "type",
+                                    "required",
+                                    "maxLength",
+                                    "style",
+                                    "initialValue",
+                                    "placeholder"
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "id",
+                            "component",
+                            "api_key",
+                            "type",
+                            "placeholder",
+                            "required",
+                            "maxLength",
+                            "style",
+                            "initialValue",
+                            "fields"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id",
+                    "fields"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "fields": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "component": {
+                              "type": "string"
+                            },
+                            "key": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            },
+                            "required": {
+                              "type": "boolean"
+                            },
+                            "maxLength": {
+                              "type": "string"
+                            },
+                            "style": {
+                              "type": "object",
+                              "properties": {
+                                "class": {
+                                  "type": "string"
+                                },
+                                "colWidth": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "class",
+                                "colWidth"
+                              ]
+                            },
+                            "initialValue": {
+                              "type": "string"
+                            },
+                            "placeholder": {
+                              "type": "string"
+                            },
+                            "fields": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "component": {
+                                      "type": "string"
+                                    },
+                                    "key": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "required": {
+                                      "type": "boolean"
+                                    },
+                                    "maxLength": {
+                                      "type": "string"
+                                    },
+                                    "style": {
+                                      "type": "object",
+                                      "properties": {
+                                        "class": {
+                                          "type": "string"
+                                        },
+                                        "colWidth": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "class",
+                                        "colWidth"
+                                      ]
+                                    },
+                                    "initialValue": {
+                                      "type": "string"
+                                    },
+                                    "placeholder": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "id",
+                                    "component",
+                                    "key",
+                                    "type",
+                                    "required",
+                                    "maxLength",
+                                    "style",
+                                    "initialValue",
+                                    "placeholder"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "component": {
+                                      "type": "string"
+                                    },
+                                    "key": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "required": {
+                                      "type": "boolean"
+                                    },
+                                    "maxLength": {
+                                      "type": "string"
+                                    },
+                                    "style": {
+                                      "type": "object",
+                                      "properties": {
+                                        "class": {
+                                          "type": "string"
+                                        },
+                                        "colWidth": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "class",
+                                        "colWidth"
+                                      ]
+                                    },
+                                    "initialValue": {
+                                      "type": "string"
+                                    },
+                                    "placeholder": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "id",
+                                    "component",
+                                    "key",
+                                    "type",
+                                    "required",
+                                    "maxLength",
+                                    "style",
+                                    "initialValue",
+                                    "placeholder"
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "id",
+                            "component",
+                            "key",
+                            "type",
+                            "required",
+                            "maxLength",
+                            "style",
+                            "initialValue",
+                            "placeholder",
+                            "fields"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "component": {
+                              "type": "string"
+                            },
+                            "api_key": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            },
+                            "placeholder": {
+                              "type": "string"
+                            },
+                            "required": {
+                              "type": "boolean"
+                            },
+                            "maxLength": {
+                              "type": "string"
+                            },
+                            "style": {
+                              "type": "object",
+                              "properties": {
+                                "class": {
+                                  "type": "string"
+                                },
+                                "colWidth": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "class",
+                                "colWidth"
+                              ]
+                            },
+                            "initialValue": {
+                              "type": "string"
+                            },
+                            "fields": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "component": {
+                                      "type": "string"
+                                    },
+                                    "key": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "required": {
+                                      "type": "boolean"
+                                    },
+                                    "maxLength": {
+                                      "type": "string"
+                                    },
+                                    "style": {
+                                      "type": "object",
+                                      "properties": {
+                                        "class": {
+                                          "type": "string"
+                                        },
+                                        "colWidth": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "class",
+                                        "colWidth"
+                                      ]
+                                    },
+                                    "initialValue": {
+                                      "type": "string"
+                                    },
+                                    "placeholder": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "id",
+                                    "component",
+                                    "key",
+                                    "type",
+                                    "required",
+                                    "maxLength",
+                                    "style",
+                                    "initialValue",
+                                    "placeholder"
+                                  ]
+                                },
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "component": {
+                                      "type": "string"
+                                    },
+                                    "key": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "required": {
+                                      "type": "boolean"
+                                    },
+                                    "maxLength": {
+                                      "type": "string"
+                                    },
+                                    "style": {
+                                      "type": "object",
+                                      "properties": {
+                                        "class": {
+                                          "type": "string"
+                                        },
+                                        "colWidth": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "class",
+                                        "colWidth"
+                                      ]
+                                    },
+                                    "initialValue": {
+                                      "type": "string"
+                                    },
+                                    "placeholder": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "id",
+                                    "component",
+                                    "key",
+                                    "type",
+                                    "required",
+                                    "maxLength",
+                                    "style",
+                                    "initialValue",
+                                    "placeholder"
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "id",
+                            "component",
+                            "api_key",
+                            "type",
+                            "placeholder",
+                            "required",
+                            "maxLength",
+                            "style",
+                            "initialValue",
+                            "fields"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id",
+                    "fields"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "style": {
+                      "type": "string"
+                    },
+                    "fields": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "component": {
+                              "type": "string"
+                            },
+                            "key": {
+                              "type": "string"
+                            },
+                            "type": {
+                              "type": "string"
+                            },
+                            "required": {
+                              "type": "boolean"
+                            },
+                            "maxLength": {
+                              "type": "string"
+                            },
+                            "style": {
+                              "type": "object",
+                              "properties": {
+                                "class": {
+                                  "type": "string"
+                                },
+                                "colWidth": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "class",
+                                "colWidth"
+                              ]
+                            },
+                            "initialValue": {
+                              "type": "string"
+                            },
+                            "placeholder": {
+                              "type": "string"
+                            },
+                            "fields": {
+                              "type": "array",
+                              "items": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "component": {
+                                      "type": "string"
+                                    },
+                                    "key": {
+                                      "type": "string"
+                                    },
+                                    "type": {
+                                      "type": "string"
+                                    },
+                                    "required": {
+                                      "type": "boolean"
+                                    },
+                                    "maxLength": {
+                                      "type": "string"
+                                    },
+                                    "style": {
+                                      "type": "object",
+                                      "properties": {
+                                        "class": {
+                                          "type": "string"
+                                        },
+                                        "colWidth": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "class",
+                                        "colWidth"
+                                      ]
+                                    },
+                                    "initialValue": {
+                                      "type": "string"
+                                    },
+                                    "placeholder": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "name",
+                                    "id",
+                                    "component",
+                                    "key",
+                                    "type",
+                                    "required",
+                                    "maxLength",
+                                    "style",
+                                    "initialValue",
+                                    "placeholder"
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "id",
+                            "component",
+                            "key",
+                            "type",
+                            "required",
+                            "maxLength",
+                            "style",
+                            "initialValue",
+                            "placeholder",
+                            "fields"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id",
+                    "text",
+                    "style",
+                    "fields"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    },
+                    "style": {
+                      "type": "string"
+                    },
+                    "fields": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "id",
+                    "text",
+                    "style",
+                    "fields"
+                  ]
+                }
+              ]
+            }
+          },
+          "required": [
+            "name",
+            "id",
+            "states"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "countries"
+  ]
+}
