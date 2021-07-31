@@ -531,7 +531,7 @@ export default function NodeUpdate({
             				<ListItem button className={classes.nested} onMouseOver= {() => handleMouseEnter(k, i)} onMouseLeave={() => handleMouseLeave()}>
             					<Grid item xs = {1} className={classes.hoverIconGrid}>
             						<>
-            							{ appear && checkIndex === i && checkkey === k && <>
+            							{/* { appear && checkIndex === i && checkkey === k && <>
             								<Tooltip title='Add a Node'>
             									<AddCircleOutlineRoundedIcon className={classes.hoverIcon} onClick={() => handleNodeAddition(k, i)} fontSize='small' />
             								</Tooltip>
@@ -540,7 +540,9 @@ export default function NodeUpdate({
             										<CancelTwoToneIcon className={classes.hoverIcon} onClick = {() => removeNode(k, json)} fontSize='small' />
             									</Tooltip>
             								}
-            							</>}</>
+            							</>
+													} */}
+													</>
             					</Grid>
             					{!Array.isArray(json) ? (
             						<>
@@ -562,7 +564,8 @@ export default function NodeUpdate({
             								(checkReadOnlyNodes(k)) ?
             									<Typography className={classes.readOnly}>{json[k].toString()}</Typography>
             									: <>
-            										<TextField name={k} fullWidth value={json[k].toString()} onChange={handleChange}
+															<TextField name={k} fullWidth value={json[k].toString()} onChange={handleChange} onBlur={() => handleUpdate(k)} />
+            										{/* <TextField name={k} fullWidth value={json[k].toString()} onChange={handleChange} onBlur={() => handleUpdate(k)}
             											InputProps={{
             												endAdornment: (
             													<InputAdornment position='start'>
@@ -578,7 +581,7 @@ export default function NodeUpdate({
             															: null }
             													</InputAdornment>
             												)
-            											}} />
+            											}} /> */}
             									</>
             								: null}
             						</ListItemText>
@@ -590,7 +593,7 @@ export default function NodeUpdate({
             				</ListItem>
 
             			</Grid>
-            			{ addNewValue && checkIndexOfNode === i && checkKeyOfNode === k &&
+            			{/* { addNewValue && checkIndexOfNode === i && checkKeyOfNode === k &&
                     <>{(k !== '$ID' && k !== '$PID') ?
                     	<Grid container spacing={1} className={classes.addSection}>
                     		<Grid item xs={1} className={classes.addButtonsSection}>
@@ -613,7 +616,7 @@ export default function NodeUpdate({
                     		</Grid>
                     	</Grid> : null}
                     </>
-            			}
+            			} */}
             		</>
             	);
             })}
@@ -621,7 +624,7 @@ export default function NodeUpdate({
 
 			</Collapse>
 
-			<Snackbar
+			{/* <Snackbar
 				anchorOrigin={{ vertical, horizontal }}
 				open={openSnackbar}
 				autoHideDuration={1000}
@@ -631,7 +634,7 @@ export default function NodeUpdate({
 				<Alert severity='info' onClose={() => setState({openSnackbar: false})}>
           JSON is saved
 				</Alert>
-			</Snackbar>
+			</Snackbar> */}
 			<br/>
 		</>
 	);

@@ -130,7 +130,7 @@ const PropertyTree = ({selectedJSON}) => {
 		<MuiThemeProvider theme={jsonBuilderTheme}>
 			<div className={classes.customWidth}>
 				<Paper variant='elevation' className={classes.paper}>
-					<AppBar position='static' fontSize='small' className = {classes.root}>
+					{/* <AppBar position='static' fontSize='small' className = {classes.root}>
 						<Toolbar>
 							<Grid container alignItems='center'>
 								<Grid item>
@@ -189,7 +189,7 @@ const PropertyTree = ({selectedJSON}) => {
 								</Grid>
 							</Grid>
 						</Toolbar>
-					</AppBar>
+					</AppBar> */}
 					<Grid container alignItems='center'>
 						<Grid item xs={12}>
 							<>

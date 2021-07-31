@@ -326,7 +326,7 @@ export default function Header() {
 														type='file'
 													/>
 													<OpenFromDisk />
-													<OpenFromCloud />
+													{/* <OpenFromCloud /> */}
 												</MenuList>
 											</ClickAwayListener>
 										</Paper>

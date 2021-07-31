@@ -78,19 +78,21 @@ const useStyles = makeStyles({
 	}
 });
 
-const ShowNodes = ({ data, parentName }) => {
+const ShowNodes = ({ data, parentName, selectedId }) => {
 	return (
 		<Tree
 			key={Math.random()}
 			data={data}
 			parentName={parentName}
+			selectedId={selectedId}
 		/>
 	);
 };
 
 export default function Tree({
 	data,
-	parentName = 'Root: []'
+	parentName = 'Root: []',
+	selectedId = null
 }) {
 	const classes = useStyles();
 	const dispatch = useDispatch();
@@ -101,8 +103,26 @@ export default function Tree({
 	const currentState = useSelector(state => state.jsonReducer.present);
 
 	const handleClick = () => {
-		setOpen(!open);
-		setAppear(!appear);
+			console.log('handle is clicked');
+			if(data.$ID === selectedId) {
+				setOpen(!open);
+			}
+	};
+
+	const handleMouseOver = () => {
+		console.log('handleMouseOver - Before', open);
+		// const openBefore = open;
+		setAppear(true);
+		// setOpen(openBefore);
+		console.log('handleMouseOver - After', open);
+	};
+
+	const handleMouseLeave = () => {
+		//console.log('handleMouseLeave - Before', open);
+		// const openBefore = open;
+		//setAppear(false);
+		// setOpen(openBefore);
+		//console.log('handleMouseLeave - After', open);
 	};
 
 	const editNode = () => {
@@ -234,6 +254,11 @@ export default function Tree({
 		);
 	};
 
+	// useEffect(() => {
+	// 	console.log('Open....' , open);
+	// 	setOpen(!open);
+	// }, [parentName !== 'Root: []']);
+
 	return (
 		<>
 			<React.Fragment key={Math.random() * 10}>
@@ -242,8 +267,8 @@ export default function Tree({
 						button
 						onClick={handleClick}
 						classes={{ root: classes.listItem }}
-						onMouseOver={() => setAppear(true)}
-						onMouseLeave={() => setAppear(false)}
+						onMouseOver={handleMouseOver}
+						onMouseLeave={handleMouseLeave}
 					>
 						<ListItemIcon
 							key={Math.random() * 10}
@@ -261,19 +286,19 @@ export default function Tree({
 								<>
 									{parentName === 'Root: []' ?
 										<>
-											{(Object.keys(currentState.jsonData).length) > 2 ?
+											{/* {(Object.keys(currentState.jsonData).length) > 2 ?
 												<Tooltip title="Add child node">
 													<AddCircleOutlineRoundedIcon onClick={addNode} fontSize="small" />
 												</Tooltip>
 												: null
-											}
+											} */}
 										</>
 										:
 										<>
 											<Tooltip title="Edit node">
 												<EditTwoToneIcon onClick={editNode} fontSize="small" />
 											</Tooltip>
-											<Tooltip title="Clone node">
+											{/* <Tooltip title="Clone node">
 												<DoneAllRoundedIcon onClick={cloneNode} fontSize="small" />
 											</Tooltip>
 											<Tooltip title="Add child node">
@@ -281,7 +306,7 @@ export default function Tree({
 											</Tooltip>
 											<Tooltip title="Remove node">
 												<CancelTwoToneIcon onClick={removeNode} fontSize="small" />
-											</Tooltip>
+											</Tooltip> */}
 										</>
 									}
 
@@ -295,9 +320,7 @@ export default function Tree({
 			</React.Fragment>
 
 			<Collapse
-				in={true}
-				timeout="auto"
-				unmountOnExit
+				in={parentName === 'Root: []'? true : open}
 				style={{ paddingLeft: '30px' }}
 			>
 
@@ -311,13 +334,15 @@ export default function Tree({
 										{Array.from(data[k]).map((item, index) => (
 											<>
 												{data[k][index]['id'] &&
-															<ShowNodes key={index} item={item} data={data[k][index]} parentName={data[k][index]['id'] ? data[k][index]['name'] +  ' - ' + data[k][index]['id'] : ' '} />
+															<ShowNodes key={index} item={item} data={data[k][index]} parentID={data[k][index]['id']} parentName={data[k][index]['id'] ? data[k][index]['name'] +  ' - ' + data[k][index]['id'] : ' '} selectedId={data[k][index]['$ID']} />
 												}
 											</>
 										))}
 									</>
 									:
-									''
+									<>
+										{k === 'module' ? <ShowNodes data={Array.of(data[k])[0]} parentID ={data[k]['id']} parentName={data[k]['id'] ? data[k]['name'] +  ' - ' + data[k]['id'] : ' '} selectedId={data[k]['$ID']} /> : null }
+									</>
 								) : '';
 						})}
 				</List>
